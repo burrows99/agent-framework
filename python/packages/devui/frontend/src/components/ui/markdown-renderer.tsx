@@ -473,9 +473,15 @@ function parseBoldItalicLinks(text: string): React.ReactNode[] {
       const match = remaining.match(pattern.regex);
 
       if (match && match.index !== undefined) {
-        // Add text before match
+        // Add text before match. A higher-priority pattern can match later in
+        // the line than a lower-priority one, so the text before it still
+        // needs parsing.
         if (match.index > 0) {
-          parts.push(remaining.slice(0, match.index));
+          parts.push(
+            <React.Fragment key={key++}>
+              {parseBoldItalicLinks(remaining.slice(0, match.index))}
+            </React.Fragment>
+          );
         }
 
         // Add matched element

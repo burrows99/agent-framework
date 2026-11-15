@@ -53,6 +53,8 @@ jobs:
         run: npm ci
       - name: Test file links
         run: npm run test:file-urls
+      - name: Test markdown rendering
+        run: npm run test:markdown
       - name: Test tracing
         run: npm run test:tracing
       - name: Lint frontend
